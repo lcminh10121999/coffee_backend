@@ -1,0 +1,31 @@
+{
+  "name": "coffee_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start" : "nodemon --inspect index.js localhost 3030",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lcminh10121999/coffee_backend.git"
+  },
+  "keywords": [
+    "coffee",
+    "coffee_backend",
+    "backend"
+  ],
+  "author": "sondn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lcminh10121999/coffee_backend/issues"
+  },
+  "homepage": "https://github.com/lcminh10121999/coffee_backend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
