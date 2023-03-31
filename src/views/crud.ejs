@@ -1,0 +1,56 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div>
+        <p>Create user</p>
+    </div>
+    <form action="/post-crud" method="POST">
+        <div>
+            <label for="">Email</label>
+            <input type="email" name="email">
+        </div>
+        <div>
+            <label for="">password</label>
+            <input type="password" name="password">
+        </div>
+        <div>
+            <label for="">name</label>
+            <input type="text" name="name">
+        </div>
+        <div>
+            <label for="">date</label>
+            <input type="date" name="birthday">
+        </div>
+        <div>
+            <label for="">phone</label>
+            <input type="text" name="phone">
+        </div>
+
+        <div>
+            <label for="">address</label>
+            <input type="text" name="address">
+        </div>
+        <div>
+            <label for="">gioi tin</label>
+            <input type="radio" value="1" checked name="gender"><span>nam</span>
+            <input type="radio" value="2" name="gender"><span>nu</span>
+        </div>
+        <div>
+            <label for="">role</label>
+            <input type="radio" value="1" checked name="role"><span>customer</span>
+            <input type="radio" value="2" name="role"><span>admin</span>
+        </div>
+        <button type="submit">save</button>
+    </form>
+
+</body>
+
+</html>

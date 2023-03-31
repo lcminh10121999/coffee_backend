@@ -1,0 +1,48 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get CRUD</title>
+</head>
+
+<body>
+    <h1>Get CRUD from view</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>email</th>
+                <th>name</th>
+                <th>phone</th>
+                <th>address</th>
+                <th>action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let i=0; i < dataUser.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= dataUser[i].email %>
+                    </td>
+                    <td>
+                        <%= dataUser[i].name %>
+                    </td>
+                    <td>
+                        <%= dataUser[i].phone %>
+                    </td>
+                    <td>
+                        <%= dataUser[i].address %>
+                    </td>
+                    <td>
+                        <a href="/edit-CRUD?id=<%= dataUser[i].id %>" type="button">edit</a>
+                        <a href="/delete-CRUD?id=<%= dataUser[i].id %>" type="button">delete</a>
+                    </td>
+                </tr>
+                <% } %>
+
+        </tbody>
+    </table>
+</body>
+
+</html>
