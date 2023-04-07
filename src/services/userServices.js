@@ -77,15 +77,19 @@ let compareUserPassWord = () => {
     })
 }
 
-let getAllUsers = (userId) => {
+let getAllUsers = (userId, limitUser, offsetUser) => {
     return new Promise(async (resolve, reject) => {
         let user = "";
+        let limit = Number(limitUser);
+        let offset = Number(offsetUser);
         try {
             if (userId === "ALL") {
                 user = await db.User.findAll({
                     attributes: {
                         exclude: ['password'],
-                    }
+                    },
+                    limit: limit,
+                    offset: offset
                 });
             } else if (userId && userId !== "ALL") {
                 user = await db.User.findOne({

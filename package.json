@@ -38,6 +38,7 @@
     "@babel/core": "^7.19.3",
     "@babel/node": "^7.19.1",
     "@babel/preset-env": "^7.19.3",
+    "@faker-js/faker": "^7.6.0",
     "nodemon": "^2.0.22",
     "sequelize-cli": "^6.2.0"
   }

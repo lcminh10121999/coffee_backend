@@ -26,8 +26,10 @@ let handleLogin = async (req, res) => {
 }
 
 const handleGetAllUsers = async (req, res) => {
-    let id = req.body.id; // All get all , id get single
 
+    let id = req.query.id; // All get all , id get single
+    let limit = req.query.limit // limit number user
+    let offset = 0 + (req.query.page - 1) * limit;
     if (!id) {
         return res.status(200).json({
             errCode: 1,
@@ -36,8 +38,8 @@ const handleGetAllUsers = async (req, res) => {
         });
     }
 
-    let users = await userServices.getAllUsers(id);
-
+    let users = await userServices.getAllUsers(id, limit, offset);
+    console.log(users);
     return res.status(200).json({
         errCode: 0,
         errMessage: "success",
