@@ -25,7 +25,7 @@ let handleLogin = async (req, res) => {
     })
 }
 
-const handleGetAllUsers = async (req, res) => {
+let handleGetAllUsers = async (req, res) => {
 
     let id = req.query.id; // All get all , id get single
     let limit = req.query.limit // limit number user
@@ -47,7 +47,14 @@ const handleGetAllUsers = async (req, res) => {
     });
 }
 
+let handleCreateNewUser = async (req, res) => {
+    let message = await userServices.createNewUser(req.body);
+    console.log(message);
+    return res.json(200).json(message);
+}
+
 module.exports = {
     handleLogin: handleLogin,
     handleGetAllUsers: handleGetAllUsers,
+    handleCreateNewUser: handleCreateNewUser,
 }
