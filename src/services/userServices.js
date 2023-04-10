@@ -97,7 +97,10 @@ let getAllUsers = (userId, limitUser, offsetUser) => {
                         exclude: ['password'],
                     },
                     limit: limit,
-                    offset: offset
+                    offset: offset,
+                    order: [
+                        ['id', 'DESC'],
+                    ]
                 });
             } else if (userId && userId !== "ALL") {
                 user = await db.User.findOne({
@@ -130,27 +133,100 @@ let hashPassWordUser = (password) => {
 let createNewUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let hashUserPassWordFromBcrypt = await hashPassWordUser(data.password);
-            await db.User.create({
-                email: data.email,
-                password: hashUserPassWordFromBcrypt,
-                name: data.name,
-                birthday: data.birthday,
-                phone: data.phone,
-                address: data.address,
-                status: data.status,
-                gender: data.gender,
-                role: data.role,
-                Image: data.image,
-            });
-            resolve({
-                errorCode: 0,
-                errorMessage: "success"
-            });
+
+            let check = await handleCheckEmail(data.email);
+            if (check === true) {
+                resolve({
+                    errorCode: 1,
+                    errorMessage: "This is email already Exist"
+                });
+            } else {
+                let hashUserPassWordFromBcrypt = await hashPassWordUser(data.password);
+                await db.User.create({
+                    email: data.email,
+                    password: hashUserPassWordFromBcrypt,
+                    name: data.name,
+                    birthday: data.birthday,
+                    phone: data.phone,
+                    address: data.address,
+                    status: data.status,
+                    gender: data.gender,
+                    role: data.role,
+                    image: data.image,
+                });
+                resolve({
+                    errorCode: 0,
+                    errorMessage: "success"
+                });
+            }
+
         } catch (error) {
             reject(error)
         }
     });
+}
+
+let deleteUser = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({
+                where: { id: userId }
+            });
+            if (!user) {
+                resolve({
+                    errCode: 2,
+                    errMessage: `Người dùng không tồn tại`
+                });
+            } else {
+                await db.User.destroy({
+                    where: { id: userId }
+                })
+                resolve({
+                    errCode: 0,
+                    errMessage: `Xóa người dùng thành công`
+                });
+            }
+        } catch (error) {
+            reject(error);
+        }
+
+    })
+}
+let editUser = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+
+            let user = await db.User.findOne({
+                where: { id: data.id },
+                raw: false,
+            });
+            if (!user) {
+                resolve({
+                    errCode: 2,
+                    errMessage: `Người dùng không tồn tại`
+                });
+            } else {
+                user.name = data.name;
+                user.email = data.email;
+                user.phone = data.phone;
+                user.address = data.address;
+                user.birthday = data.birthday;
+                user.status = data.status;
+                user.gender = data.gender;
+                user.role = data.role;
+                user.image = data.image;
+
+                await user.save();
+                resolve({
+                    errCode: 0,
+                    errMessage: "cập nhật thành công"
+                });
+            }
+        } catch (error) {
+            reject(error);
+        }
+
+    })
 }
 
 module.exports = {
@@ -158,4 +234,6 @@ module.exports = {
     handleCheckEmail: handleCheckEmail,
     getAllUsers: getAllUsers,
     createNewUser: createNewUser,
+    deleteUser: deleteUser,
+    editUser: editUser,
 };

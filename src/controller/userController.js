@@ -33,7 +33,7 @@ let handleGetAllUsers = async (req, res) => {
     if (!id) {
         return res.status(200).json({
             errCode: 1,
-            errMessage: "Missing Parameters",
+            errMessage: "Ttruyền thiếu Id",
             users: []
         });
     }
@@ -50,11 +50,33 @@ let handleGetAllUsers = async (req, res) => {
 let handleCreateNewUser = async (req, res) => {
     let message = await userServices.createNewUser(req.body);
     console.log(message);
-    return res.json(200).json(message);
+    return res.status(200).json(message);
+}
+
+let handleEditUser = async (req, res) => {
+    if (!req.body.id) {
+        return res.status(200).json({
+            errCode: 1,
+            errMessage: "Truyền thiếu id",
+        });
+    } else {
+        let message = await userServices.editUser(req.body);
+        console.log(message);
+        return res.status(200).json(message);
+    }
+}
+
+let handleDeleteUser = async (req, res) => {
+    let message = await userServices.deleteUser(req.body.id);
+    console.log(message);
+    return res.status(200).json(message);
+
 }
 
 module.exports = {
     handleLogin: handleLogin,
     handleGetAllUsers: handleGetAllUsers,
     handleCreateNewUser: handleCreateNewUser,
+    handleEditUser: handleEditUser,
+    handleDeleteUser: handleDeleteUser,
 }
