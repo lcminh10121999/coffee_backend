@@ -34,17 +34,17 @@ let handleUserLogin = (userEmail, userPassword) => {
                         userData.user = user;
                     } else {
                         userData.errCode = 3;
-                        userData.errMessage = `Wrong password`;
+                        userData.errMessage = `Sai password`;
 
                     }
                 } else {
                     userData.errCode = 2;
-                    userData.errMessage = `Your's Email isn't exist`;
+                    userData.errMessage = `Email không tồn tại`;
 
                 }
             } else {
                 userData.errCode = 1;
-                userData.errMessage = `Your's Email isn't exist`;
+                userData.errMessage = `Email không tồn tại`;
 
             }
             resolve(userData);
@@ -200,6 +200,7 @@ let editUser = (data) => {
                 where: { id: data.id },
                 raw: false,
             });
+            console.log(data);
             if (!user) {
                 resolve({
                     errCode: 2,
@@ -217,9 +218,15 @@ let editUser = (data) => {
                 user.image = data.image;
 
                 await user.save();
+
+                let resUser = await db.User.findOne({
+                    where: { id: data.id },
+                    raw: true,
+                });
                 resolve({
                     errCode: 0,
-                    errMessage: "cập nhật thành công"
+                    errMessage: "cập nhật thành công",
+                    user: resUser,
                 });
             }
         } catch (error) {
