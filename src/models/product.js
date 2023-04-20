@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Product.belongsTo(models.Category, { foreignKey: "category_id" });
+      Product.belongsToMany(models.Size, { foreignKey: "product_id", as: "productSizeData", through: models.Size_Product });
+      Product.belongsToMany(models.Topping, { foreignKey: "product_id", as: "productToppingData", through: models.Topping_Product });
     }
   };
   Product.init({
@@ -21,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.INTEGER,
     description: DataTypes.TEXT('long'),
     category_id: DataTypes.INTEGER,
-    gender: DataTypes.INTEGER,
+
   }, {
     sequelize,
     modelName: 'Product',

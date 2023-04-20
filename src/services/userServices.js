@@ -142,7 +142,7 @@ let createNewUser = (data) => {
                 });
             } else {
                 let hashUserPassWordFromBcrypt = await hashPassWordUser(data.password);
-                await db.User.create({
+                const newUser = await db.User.create({
                     email: data.email,
                     password: hashUserPassWordFromBcrypt,
                     name: data.name,
@@ -154,6 +154,12 @@ let createNewUser = (data) => {
                     role: data.role,
                     image: data.image,
                 });
+
+                await db.Cart.create({
+                    user_id: newUser.id,
+                    code: "KH-" + newUser.id
+                })
+
                 resolve({
                     errorCode: 0,
                     errorMessage: "success"

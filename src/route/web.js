@@ -2,6 +2,8 @@ import express from "express";
 import homeController from "../controller/homeController";
 import userController from "../controller/userController"
 import categoryController from "../controller/categoryController";
+import productController from '../controller/productController';
+import testController from '../controller/testController';
 let router = express.Router();
 
 let initWebRouter = (app) => {
@@ -23,8 +25,11 @@ let initWebRouter = (app) => {
     router.put('/api/edit-user', userController.handleEditUser);
     router.delete('/api/delete-user', userController.handleDeleteUser);
     //API Category
-    router.get('/api/get-category', categoryController.getCategory)
+    router.get('/api/get-category', categoryController.getCategory);
 
+    // API Product 
+    router.get('/api/get-product', productController.handleGetProduct);
+    router.get('/api/product-detail', productController.handleGetProductDetail);
 
     return app.use("/", router);
 }
