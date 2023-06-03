@@ -19,7 +19,18 @@ let handleUserLogin = (userEmail, userPassword) => {
                     where: {
                         email: userEmail
                     },
-                    raw: true,
+                    include: [
+                        {
+                            model: db.Cart,
+                            as: "cartUser"
+                        },
+                        {
+                            model: db.Address_Book,
+                            as: "addressBookUser"
+                        },
+
+                    ],
+                    raw: false,
                     // attributes: {
                     //     include: ['email'], // define columns that you want to show
                     //     exclude: [] // define columns that you don't want 
@@ -47,6 +58,7 @@ let handleUserLogin = (userEmail, userPassword) => {
                 userData.errMessage = `Email không tồn tại`;
 
             }
+            console.log("userData", userData);
             resolve(userData);
         } catch (error) {
             reject(error);

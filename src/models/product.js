@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsTo(models.Category, { foreignKey: "category_id" });
       Product.belongsToMany(models.Size, { foreignKey: "product_id", as: "productSizeData", through: models.Size_Product });
       Product.belongsToMany(models.Topping, { foreignKey: "product_id", as: "productToppingData", through: models.Topping_Product });
+      Product.hasMany(models.Cart_Detail, { foreignKey: "product_id", as: "productCartDetailData" });
+      Product.hasMany(models.OrderDetail, { foreignKey: "product_id", as: "orderDetailProduct" });
     }
   };
   Product.init({
@@ -24,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.INTEGER,
     description: DataTypes.TEXT('long'),
     category_id: DataTypes.INTEGER,
-
+    count_sell: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Product',

@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 const salt = bcrypt.genSaltSync(10);
 import db from '../models/index';
+import emailServices from "./emailServices.js";
 
 
 
@@ -45,6 +46,7 @@ let hashPassWordUser = (password) => {
 let getAllUser = () => {
     return new Promise(async (resolve, reject) => {
         try {
+            await emailServices.checkSimpleMail("lcminh10121999@gmail.com")
             let users = await db.User.findAll({
                 raw: true
             });

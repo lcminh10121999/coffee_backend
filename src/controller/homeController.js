@@ -15,9 +15,10 @@ let postCRUD = async (req, res) => {
 
 let displayCRUD = async (req, res) => {
     let dataUser = await CRUDservices.getAllUser();
-    return res.render("displayCRUD.ejs", {
-        dataUser: dataUser
-    });
+    // return res.render("displayCRUD.ejs", {
+    //     // dataUser: dataUser
+    // });
+    return res.status(200).json("abc");
 }
 let getEditCRUD = async (req, res) => {
     let userId = req.query.id;

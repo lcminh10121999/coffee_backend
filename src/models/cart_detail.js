@@ -11,12 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Cart_Detail.hasOne(models.Cart_Detail_Size, { foreignKey: "cart_detail_id", as: "cartDetailSize", onDelete: 'CASCADE', hooks: true });
+      Cart_Detail.hasMany(models.Cart_Detail_Topping, { foreignKey: "cart_detail_id", as: "cartDetailToping", onDelete: 'CASCADE', hooks: true });
+      Cart_Detail.belongsTo(models.Product, { foreignKey: "product_id", as: "productCartDetailData" });
+
     }
   };
   Cart_Detail.init({
     cart_id: DataTypes.INTEGER,
     product_id: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
+    total_price: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER,
     note: DataTypes.TEXT('long')
   }, {

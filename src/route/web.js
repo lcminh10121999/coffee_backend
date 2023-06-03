@@ -4,6 +4,11 @@ import userController from "../controller/userController"
 import categoryController from "../controller/categoryController";
 import productController from '../controller/productController';
 import testController from '../controller/testController';
+import cartController from '../controller/cartController.js';
+import storeController from '../controller/storeController.js';
+import addressBookController from '../controller/addressBookController.js';
+import orderController from '../controller/orderController.js';
+
 let router = express.Router();
 
 let initWebRouter = (app) => {
@@ -15,6 +20,9 @@ let initWebRouter = (app) => {
     router.post('/put-crud', homeController.putEditCRUD);
     router.get('/delete-crud', homeController.deleteCRUD);
 
+
+    //API Test
+    router.get('/api/test', testController.getTest);
 
     //API
     //API Login User
@@ -29,7 +37,34 @@ let initWebRouter = (app) => {
 
     // API Product 
     router.get('/api/get-product', productController.handleGetProduct);
+    router.get('/api/get-product-sell-count', productController.getProductSellCount);
     router.get('/api/product-detail', productController.handleGetProductDetail);
+    router.get('/api/search-product', productController.handleSearchProduct);
+
+
+    //API Cart
+    router.post('/api/store-cart-detail', cartController.saveCartDetail);
+    router.get('/api/get-all-cart-detail', cartController.getAllCartDetail);
+    router.put('/api/update-cart-detail', cartController.updateCartDetail);
+    router.delete('/api/delete-cart-detail', cartController.deleteCartDetail);
+
+
+    //API Store
+    router.get('/api/get-store', cartController.getAllStore);
+
+    //API address book
+    router.get('/api/get-address-book', addressBookController.getAllAddressBook);
+    router.post('/api/create-address-book', addressBookController.createAddressBook);
+    router.delete('/api/delete-address-book', addressBookController.deleteAddressBook);
+
+    //API ORDER
+    router.post('/api/create-order', orderController.createOrder);
+    router.get('/api/get-order', orderController.getListOrder);
+    router.get('/api/get-order-notification', orderController.getListOrderNotification);
+    router.get('/api/update-order-notification', orderController.updateOrderNotification);
+    router.get('/api/search-order', orderController.searchOrder);
+
+
 
     return app.use("/", router);
 }

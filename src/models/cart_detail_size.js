@@ -11,12 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Cart_Detail_Size.belongsTo(models.Cart_Detail, { foreignKey: "cart_detail_id", as: "cartDetailSize", onDelete: 'CASCADE', hooks: true });
     }
   };
   Cart_Detail_Size.init({
     cart_detail_id: DataTypes.INTEGER,
     name: DataTypes.STRING,
-    price: DataTypes.INTEGER
+    price: DataTypes.INTEGER,
+    size_id: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Cart_Detail_Size',

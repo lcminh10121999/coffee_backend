@@ -1,5 +1,5 @@
 import db from "../models/index";
-import categoryServices from "../services/categoryServices";
+import storeServices from "../services/storeServices.js";
 import testServices from "../services/testServices.js";
 
 
@@ -7,11 +7,22 @@ let getTest = async (req, res) => {
 
     let data = await testServices.getProductList();
 
-    console.log(data);
+
 
     return res.status(200).json(data);
 }
 
-module.exports = {
-    getTest: getTest
+let getAllStore = async (req, res) => {
+    await testServices.getProductList();
 }
+
+module.exports = {
+    getTest: getTest,
+    getAllStore: getAllStore
+}
+
+
+
+
+
+
